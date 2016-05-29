@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace trabalhocsharpfeevale.Models
 {   
-    [Table("Cidades")]
     public class Cidade
     {
         public int IDCidade { get; set; }

@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace trabalhocsharpfeevale.Models
 {   
-    [Table("Usuarios")]
     public class Usuario
     {
-        public int IDUsuario { get; set; }
+        public long IDUsuario { get; set; }
 
         public string Nome { get; set; }
 

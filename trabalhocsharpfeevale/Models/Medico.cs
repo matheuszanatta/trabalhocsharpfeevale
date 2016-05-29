@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace trabalhocsharpfeevale.Models
 {   
-    [Table("Medicos")]
     public class Medico
     {
-        public int IDMedico { get; set; }
+        public long IDMedico { get; set; }
 
-        public int CRM { get; set; }
+        public string CRM { get; set; }
 
         public string Nome { get; set; }
 
@@ -27,6 +26,10 @@ namespace Domain
         public bool TemClinica { get; set; }
 
         public string WebsiteBlog { get; set; }
+
+        public long IDCidade{ get; set; }
+
+        public long IDEspecialidade { get; set; }
 
     }
 }
