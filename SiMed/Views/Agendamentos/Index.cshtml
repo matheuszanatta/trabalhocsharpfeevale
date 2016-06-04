@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SiMed.Models.Agendamento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Medico.CRM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pessoa.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DhAgendamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Situacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medico.CRM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DhAgendamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Situacao)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdAgendamento }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdAgendamento }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdAgendamento })
+        </td>
+    </tr>
+}
+
+</table>
