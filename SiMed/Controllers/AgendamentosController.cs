@@ -39,7 +39,7 @@ namespace SiMed.Controllers
         // GET: Agendamentos/Create
         public ActionResult Create()
         {
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM");
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome");
             ViewBag.CPFPessoa = new SelectList(db.Pessoas, "CPF", "Nome");
             return View();
         }
@@ -49,16 +49,17 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,DhAgendamento,Situacao")] Agendamento agendamento)
+        public ActionResult Create([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,DhAgendamento,Classificacao")] Agendamento agendamento)
         {
             if (ModelState.IsValid)
             {
+                agendamento.Situacao = true;
                 db.Agendamentos.Add(agendamento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM", agendamento.IDMedico);
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome", agendamento.IDMedico);
             ViewBag.CPFPessoa = new SelectList(db.Pessoas, "CPF", "Nome", agendamento.CPFPessoa);
             return View(agendamento);
         }
@@ -75,7 +76,7 @@ namespace SiMed.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM", agendamento.IDMedico);
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome", agendamento.IDMedico);
             ViewBag.CPFPessoa = new SelectList(db.Pessoas, "CPF", "Nome", agendamento.CPFPessoa);
             return View(agendamento);
         }
@@ -85,7 +86,7 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,DhAgendamento,Situacao")] Agendamento agendamento)
+        public ActionResult Edit([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,DhAgendamento,Situacao,Classificacao")] Agendamento agendamento)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +94,7 @@ namespace SiMed.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM", agendamento.IDMedico);
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome", agendamento.IDMedico);
             ViewBag.CPFPessoa = new SelectList(db.Pessoas, "CPF", "Nome", agendamento.CPFPessoa);
             return View(agendamento);
         }

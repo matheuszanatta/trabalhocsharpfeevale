@@ -17,12 +17,17 @@ namespace SiMed.Models
         public string CPFPessoa { get; set; }
         public DateTime DhAgendamento { get; set; }
         public bool Situacao { get; set; }
+        public Classificacao Classificacao { get; set; }
 
         [ForeignKey("IDMedico")]
         public Medico Medico { get; set; }
 
         [ForeignKey("CPFPessoa")]
         public Pessoa Pessoa { get; set; }
-        
+    }
+
+    public enum Classificacao
+    {
+        CONSULTA = 1, RECONSULTA = 2, CONSULTA_DE_ROTINA = 3
     }
 }

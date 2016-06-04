@@ -168,6 +168,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="SQL\Tabela_Agendamentos_2.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -209,6 +210,7 @@
     <Content Include="Views\Pessoas\Details.cshtml" />
     <Content Include="Views\Pessoas\Edit.cshtml" />
     <Content Include="Views\Pessoas\Index.cshtml" />
+    <Content Include="SQL\Tabela_Agendamentos_1.sql" />
     <Content Include="Views\Agendamentos\Create.cshtml" />
     <Content Include="Views\Agendamentos\Delete.cshtml" />
     <Content Include="Views\Agendamentos\Details.cshtml" />
