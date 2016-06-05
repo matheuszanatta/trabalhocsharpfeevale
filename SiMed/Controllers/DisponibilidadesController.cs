@@ -8,22 +8,26 @@ using System.Web;
 using System.Web.Mvc;
 using SiMed.Models;
 using SiMed.Services;
+using SiMed.Seguranca;
 
 namespace SiMed.Controllers
-{
+{   
+    [Autorizador]
     public class DisponibilidadesController : Controller
     {
         private SiMedBDContext db = new SiMedBDContext();
         private DisponibilidadeService service = new DisponibilidadeService();
 
         // GET: Disponibilidades
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Index()
-        {
-            var disponibilidades = db.Disponibilidades.Include(d => d.Medico);
+        {   
+            var disponibilidades = db.Disponibilidades.Include(d => d.Medico).OrderBy(d => d.Dia).OrderBy(d => d.IDMedico);
             return View(disponibilidades.ToList());
         }
 
         // GET: Disponibilidades/Details/5
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -42,9 +46,10 @@ namespace SiMed.Controllers
         }
 
         // GET: Disponibilidades/Create
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Create()
         {
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM");
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome");
             return View();
         }
 
@@ -53,6 +58,7 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Create([Bind(Include = "IDMedico,Dia,InicioTurno1,FimTurno1,InicioTurno2,FimTurno2")] Disponibilidade disponibilidade)
         {
             if (ModelState.IsValid)
@@ -62,11 +68,12 @@ namespace SiMed.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM", disponibilidade.IDMedico);
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome", disponibilidade.IDMedico);
             return View(disponibilidade);
         }
 
         // GET: Disponibilidades/Edit/5
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -78,7 +85,7 @@ namespace SiMed.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM", disponibilidade.IDMedico);
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome", disponibilidade.IDMedico);
             return View(disponibilidade);
         }
 
@@ -87,6 +94,7 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Edit([Bind(Include = "IDDisponibilidade,IDMedico,Dia,InicioTurno1,FimTurno1,InicioTurno2,FimTurno2")] Disponibilidade disponibilidade)
         {
             if (ModelState.IsValid)
@@ -95,11 +103,12 @@ namespace SiMed.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "CRM", disponibilidade.IDMedico);
+            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome", disponibilidade.IDMedico);
             return View(disponibilidade);
         }
 
         // GET: Disponibilidades/Delete/5
+        [Autorizador(Roles = "MEDICO")]
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -115,6 +124,7 @@ namespace SiMed.Controllers
         }
 
         // POST: Disponibilidades/Delete/5
+        [Autorizador(Roles = "MEDICO")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
@@ -135,6 +145,7 @@ namespace SiMed.Controllers
         }
 
         [HttpGet]
+        [Autorizador(Roles = "USUARIO")]
         public JsonResult ObterDatasDisponiveis(long idMedico)
         {
             return Json(service.ObterDatasDisponiveis(idMedico), JsonRequestBehavior.AllowGet);

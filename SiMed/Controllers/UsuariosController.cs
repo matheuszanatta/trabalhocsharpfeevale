@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SiMed.Models;
+using SiMed.Services;
 
 namespace SiMed.Controllers
 {
@@ -47,9 +48,12 @@ namespace SiMed.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IDUsuario,Nome,Login,Senha,Email")] Usuario usuario)
-        {
+        {   
             if (ModelState.IsValid)
             {
+                usuario.Senha = new CriptografiaService().CriptografarSenha(usuario.Senha);
+                usuario.Permissao = Permissao.USUARIO;
+
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");

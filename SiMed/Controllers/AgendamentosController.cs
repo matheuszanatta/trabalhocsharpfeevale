@@ -8,15 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using SiMed.Models;
 using SiMed.Services;
+using SiMed.Seguranca;
 
 namespace SiMed.Controllers
-{
+{   
+    [Autorizador]
     public class AgendamentosController : Controller
     {
         private SiMedBDContext db = new SiMedBDContext();
         private AgendamentoService service = new AgendamentoService();
 
         // GET: Agendamentos
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Index()
         {
             var agendamentos = db.Agendamentos.Include(a => a.Medico).Include(a => a.Pessoa);
@@ -24,6 +27,7 @@ namespace SiMed.Controllers
         }
 
         // GET: Agendamentos/Details/5
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +43,7 @@ namespace SiMed.Controllers
         }
 
         // GET: Agendamentos/Create
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Create()
         {
             ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome");
@@ -51,6 +56,7 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Create([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,Data,Hora,Situacao,Classificacao")] Agendamento agendamento)
         {   
             if (agendamento.Classificacao == Classificacao.RECONSULTA && !service.TemConsultaAnterior(agendamento))
@@ -70,6 +76,7 @@ namespace SiMed.Controllers
         }
 
         // GET: Agendamentos/Edit/5
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,6 +98,7 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Edit([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,Data,Hora,Situacao,Classificacao")] Agendamento agendamento)
         {
             if (agendamento.Classificacao == Classificacao.RECONSULTA && !service.TemConsultaAnterior(agendamento))
@@ -110,6 +118,7 @@ namespace SiMed.Controllers
         }
 
         // GET: Agendamentos/Delete/5
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -127,6 +136,7 @@ namespace SiMed.Controllers
         // POST: Agendamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Autorizador(Roles = "USUARIO")]
         public ActionResult DeleteConfirmed(int id)
         {
             Agendamento agendamento = db.Agendamentos.Find(id);

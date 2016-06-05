@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SiMed.Models;
+using SiMed.Services;
 
 namespace SiMed.Controllers
 {
@@ -49,17 +50,29 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDMedico,CRM,Nome,Endereco,Bairro,Email,AtendePorConvenio,TemClinica,WebsiteBlog,IDCidade,IDEspecialidade")] Medico medico)
+        public ActionResult Create([Bind(Include = "IDMedico,CRM,Nome,Endereco,Bairro,Email,AtendePorConvenio,TemClinica,WebsiteBlog,IDCidade,IDEspecialidade,Login,Senha")] MedicoCadastroModel medicoCadastro)
         {
+            Medico medico = new Medico(medicoCadastro);
+
+            Usuario usuario = new Usuario()
+            {
+                Nome = medicoCadastro.Nome,
+                Login = medicoCadastro.Login,
+                Senha = new CriptografiaService().CriptografarSenha(medicoCadastro.Senha),
+                Email = medicoCadastro.Email,
+                Permissao = Permissao.MEDICO
+            };
+
             if (ModelState.IsValid)
             {
                 db.Medicos.Add(medico);
+                db.Usuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IDCidade = new SelectList(db.Cidades, "IDCidade", "Nome", medico.IDCidade);
-            ViewBag.IDEspecialidade = new SelectList(db.Especialidades, "IDEspecialidade", "Nome", medico.IDEspecialidade);
+            ViewBag.IDCidade = new SelectList(db.Cidades, "IDCidade", "Nome", medicoCadastro.IDCidade);
+            ViewBag.IDEspecialidade = new SelectList(db.Especialidades, "IDEspecialidade", "Nome", medicoCadastro.IDEspecialidade);
             return View(medico);
         }
 

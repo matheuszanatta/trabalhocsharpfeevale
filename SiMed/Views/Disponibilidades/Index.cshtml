@@ -7,12 +7,15 @@
 <h2>Disponibilidade</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nova", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Medico.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dia)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.InicioTurno1)
@@ -35,6 +38,9 @@
             @Html.DisplayFor(modelItem => item.Medico.Nome)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Dia)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.InicioTurno1)
         </td>
         <td>
@@ -47,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.FimTurno2)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.IDDisponibilidade  }) |
-            @Html.ActionLink("Details", "Details", new {  id=item.IDDisponibilidade }) |
-            @Html.ActionLink("Delete", "Delete", new {  id=item.IDDisponibilidade })
+            @Html.ActionLink("Editar", "Edit", new {  id=item.IDDisponibilidade  }) |
+            @Html.ActionLink("Detalhes", "Details", new {  id=item.IDDisponibilidade }) |
+            @Html.ActionLink("Deletar", "Delete", new {  id=item.IDDisponibilidade })
         </td>
     </tr>
 }

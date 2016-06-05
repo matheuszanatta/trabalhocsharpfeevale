@@ -7,6 +7,26 @@ namespace SiMed.Models
 {
     public class Medico
     {
+        public Medico()
+        {
+
+        }
+
+        public Medico(MedicoCadastroModel medicoCadastro)
+        {
+            this.IDMedico = medicoCadastro.IDMedico;
+            this.CRM = medicoCadastro.CRM;
+            this.Nome = medicoCadastro.Nome;
+            this.Endereco = medicoCadastro.Endereco;
+            this.Bairro = medicoCadastro.Bairro;
+            this.Email = medicoCadastro.Email;
+            this.AtendePorConvenio = medicoCadastro.AtendePorConvenio;
+            this.TemClinica = medicoCadastro.TemClinica;
+            this.WebsiteBlog = medicoCadastro.WebsiteBlog;
+            this.IDCidade = medicoCadastro.IDCidade;
+            this.IDEspecialidade = medicoCadastro.IDEspecialidade;
+    }
+
         [Key]
         public long IDMedico { get; set; }
         public string CRM { get; set; }

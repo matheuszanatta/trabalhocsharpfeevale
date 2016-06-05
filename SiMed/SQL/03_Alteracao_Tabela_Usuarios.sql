@@ -1,0 +1,4 @@
+﻿DELETE FROM Usuarios
+
+ALTER TABLE Usuarios
+ADD Permissao INT NOT NULL
