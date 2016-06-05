@@ -25,5 +25,8 @@ namespace SiMed.Models
 
         [ForeignKey("IDEspecialidade")]
         public virtual Especialidade Especialidade { get; set; }
+
+        [ForeignKey("IDMedico")]
+        public IList<Agendamento> Agendamentos { get; set; }
     }
 }

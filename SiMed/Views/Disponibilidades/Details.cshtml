@@ -1,0 +1,58 @@
+﻿@model SiMed.Models.Disponibilidade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Disponibilidade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Medico.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medico.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InicioTurno1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InicioTurno1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FimTurno1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FimTurno1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InicioTurno2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InicioTurno2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FimTurno2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FimTurno2)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

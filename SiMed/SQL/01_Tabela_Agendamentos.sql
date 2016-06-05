@@ -2,8 +2,10 @@ CREATE TABLE Agendamentos(
 	IdAgendamento INT IDENTITY NOT NULL,
 	IDMedico BIGINT NOT NULL,
 	CPFPessoa VARCHAR(50) NOT NULL,
-	DhAgendamento DATETIME NOT NULL,
-	Situacao INT NOT NULL
+	Data DATE NOT NULL,
+	Hora TIME NOT NULL,
+	Situacao INT NOT NULL,
+	Classificacao INT NOT NULL
 
 	FOREIGN KEY (IDMedico) REFERENCES Medicos(IDMedico),
 	FOREIGN KEY (CPFPessoa) REFERENCES Pessoas(CPF)

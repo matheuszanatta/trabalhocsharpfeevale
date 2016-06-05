@@ -21,5 +21,6 @@ namespace SiMed.Models
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Agendamento> Agendamentos { get; set; }
+        public DbSet<Disponibilidade> Disponibilidades { get; set; }
     }
 }

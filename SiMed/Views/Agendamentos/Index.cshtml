@@ -12,13 +12,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Medico.CRM)
+            @Html.DisplayNameFor(model => model.Medico)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pessoa.Nome)
+            @Html.DisplayNameFor(model => model.Pessoa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DhAgendamento)
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hora)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Situacao)
@@ -32,13 +35,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Medico.CRM)
+            @Html.DisplayFor(modelItem => item.Medico.Nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Pessoa.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DhAgendamento)
+            @Html.DisplayFor(modelItem => item.Data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hora)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Situacao)

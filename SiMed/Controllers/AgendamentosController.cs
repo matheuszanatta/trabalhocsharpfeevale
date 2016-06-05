@@ -7,12 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SiMed.Models;
+using SiMed.Services;
 
 namespace SiMed.Controllers
 {
     public class AgendamentosController : Controller
     {
         private SiMedBDContext db = new SiMedBDContext();
+        private AgendamentoService service = new AgendamentoService();
 
         // GET: Agendamentos
         public ActionResult Index()
@@ -49,13 +51,16 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,DhAgendamento,Classificacao")] Agendamento agendamento)
-        {
-            if (ModelState.IsValid)
+        public ActionResult Create([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,Data,Hora,Situacao,Classificacao")] Agendamento agendamento)
+        {   
+            if (agendamento.Classificacao == Classificacao.RECONSULTA && !service.TemConsultaAnterior(agendamento))
             {
-                agendamento.Situacao = true;
-                db.Agendamentos.Add(agendamento);
-                db.SaveChanges();
+                ModelState.AddModelError("Sem consulta anterior", "Só é possivel marcar reconsulta se já houver sido feita uma consulta.");
+            }
+
+            if (ModelState.IsValid && service.PodeAgendar(agendamento))
+            {
+                service.Agendar(agendamento);
                 return RedirectToAction("Index");
             }
 
@@ -86,9 +91,14 @@ namespace SiMed.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,DhAgendamento,Situacao,Classificacao")] Agendamento agendamento)
+        public ActionResult Edit([Bind(Include = "IdAgendamento,IDMedico,CPFPessoa,Data,Hora,Situacao,Classificacao")] Agendamento agendamento)
         {
-            if (ModelState.IsValid)
+            if (agendamento.Classificacao == Classificacao.RECONSULTA && !service.TemConsultaAnterior(agendamento))
+            {
+                ModelState.AddModelError("Sem consulta anterior", "Só é possivel marcar reconsulta se já houver sido feita uma consulta.");
+            }
+
+            if (ModelState.IsValid && service.PodeAgendar(agendamento))
             {
                 db.Entry(agendamento).State = EntityState.Modified;
                 db.SaveChanges();
