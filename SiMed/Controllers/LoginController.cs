@@ -36,5 +36,13 @@ namespace SiMed.Controllers
             ModelState.AddModelError("INVALID_LOGIN", "Usuário ou senha inválidos.");
             return View("Index", model);
         }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            ControleDeSessao.FecharSessao();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

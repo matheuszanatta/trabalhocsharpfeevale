@@ -27,5 +27,11 @@ namespace SiMed.Seguranca
 
             HttpContext.Current.Session["USUARIO_LOGADO"] = usuarioLogado;
         }
+
+        public static void FecharSessao()
+        {
+            FormsAuthentication.SignOut();
+            HttpContext.Current.Session.RemoveAll();
+        }
     }
 }

@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SiMed.Models;
+using SiMed.Seguranca;
 
 namespace SiMed.Controllers
 {
+    [Autorizador]
     public class EspecialidadesController : Controller
     {
         private SiMedBDContext db = new SiMedBDContext();

@@ -129,3 +129,4 @@ C:\Users\Pablo\Documents\trabalhocsharpfeevale\SiMed\bin\Antlr3.Runtime.pdb
 C:\Users\Pablo\Documents\trabalhocsharpfeevale\SiMed\bin\Newtonsoft.Json.xml
 C:\Users\Pablo\Documents\trabalhocsharpfeevale\SiMed\obj\Debug\SiMed.dll
 C:\Users\Pablo\Documents\trabalhocsharpfeevale\SiMed\obj\Debug\SiMed.pdb
+C:\Users\Pablo\Documents\trabalhocsharpfeevale\SiMed\obj\Debug\SiMed.csprojResolveAssemblyReference.cache
