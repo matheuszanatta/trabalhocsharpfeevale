@@ -19,7 +19,9 @@ namespace SiMed.Controllers
         // GET: Pessoas
         public ActionResult Index()
         {
-            return View(db.Pessoas.ToList());
+            var pessoas = db.Pessoas.Where(x => x.Ativo == true).ToList();
+
+            return View(pessoas);
         }
 
         // GET: Pessoas/Details/5
@@ -50,6 +52,8 @@ namespace SiMed.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CPF,Nome,Idade")] Pessoa pessoa)
         {
+            pessoa.Ativo = true;
+
             if (ModelState.IsValid)
             {
                 db.Pessoas.Add(pessoa);
@@ -112,7 +116,7 @@ namespace SiMed.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             Pessoa pessoa = db.Pessoas.Find(id);
-            db.Pessoas.Remove(pessoa);
+            pessoa.Ativo = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

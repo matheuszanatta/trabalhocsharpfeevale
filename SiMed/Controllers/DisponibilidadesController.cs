@@ -21,8 +21,9 @@ namespace SiMed.Controllers
         // GET: Disponibilidades
         [Autorizador(Roles = "MEDICO")]
         public ActionResult Index()
-        {   
-            var disponibilidades = db.Disponibilidades.Include(d => d.Medico).OrderBy(d => d.Dia).OrderBy(d => d.IDMedico);
+        {
+            var medico = db.Medicos.FirstOrDefault(x => x.IDUsuario == ControleDeSessao.UsuarioLogado.IDUsuario);
+            var disponibilidades = db.Disponibilidades.Include(d => d.Medico).Where(x => x.IDMedico == medico.IDMedico).OrderBy(d => d.Dia);
             return View(disponibilidades.ToList());
         }
 
@@ -49,7 +50,7 @@ namespace SiMed.Controllers
         [Autorizador(Roles = "MEDICO")]
         public ActionResult Create()
         {
-            ViewBag.IDMedico = new SelectList(db.Medicos, "IDMedico", "Nome");
+            ViewBag.IDMedico = db.Medicos.FirstOrDefault(x => x.IDUsuario == ControleDeSessao.UsuarioLogado.IDUsuario).IDMedico;
             return View();
         }
 

@@ -34,7 +34,7 @@ namespace SiMed.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agendamento agendamento = db.Agendamentos.Find(id);
+            Agendamento agendamento = db.Agendamentos.Include(x => x.Medico).Include(x => x.Pessoa).FirstOrDefault(x => x.IdAgendamento == id);
             if (agendamento == null)
             {
                 return HttpNotFound();

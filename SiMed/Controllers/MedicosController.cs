@@ -20,7 +20,7 @@ namespace SiMed.Controllers
         // GET: Medicos
         public ActionResult Index()
         {
-            var medicos = db.Medicos.Include(m => m.Cidade).Include(m => m.Especialidade);
+            var medicos = db.Medicos.Include(m => m.Cidade).Include(m => m.Especialidade).Where(x => x.Ativo == true);
             return View(medicos.ToList());
         }
 
@@ -55,6 +55,7 @@ namespace SiMed.Controllers
         public ActionResult Create([Bind(Include = "IDMedico,CRM,Nome,Endereco,Bairro,Email,AtendePorConvenio,TemClinica,WebsiteBlog,IDCidade,IDEspecialidade,Login,Senha")] MedicoCadastroModel medicoCadastro)
         {
             Medico medico = new Medico(medicoCadastro);
+            medico.Ativo = true;
 
             Usuario usuario = new Usuario()
             {
@@ -65,10 +66,12 @@ namespace SiMed.Controllers
                 Permissao = Permissao.MEDICO
             };
 
+            medico.Usuario = usuario;
+
             if (ModelState.IsValid)
             {
-                db.Medicos.Add(medico);
                 db.Usuarios.Add(usuario);
+                db.Medicos.Add(medico);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -134,7 +137,7 @@ namespace SiMed.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Medico medico = db.Medicos.Find(id);
-            db.Medicos.Remove(medico);
+            medico.Ativo = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

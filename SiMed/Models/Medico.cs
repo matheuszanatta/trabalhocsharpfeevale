@@ -39,6 +39,8 @@ namespace SiMed.Models
         public string WebsiteBlog { get; set; }
         public int IDCidade { get; set; }
         public int IDEspecialidade { get; set; }
+        public bool Ativo { get; set; }
+        public long IDUsuario { get; set; }
 
         [ForeignKey("IDCidade")]
         public virtual Cidade Cidade { get; set; }
@@ -48,5 +50,8 @@ namespace SiMed.Models
 
         [ForeignKey("IDMedico")]
         public IList<Agendamento> Agendamentos { get; set; }
+
+        [ForeignKey("IDUsuario")]
+        public Usuario Usuario { get; set; }
     }
 }

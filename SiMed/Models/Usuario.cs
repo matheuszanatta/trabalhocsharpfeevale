@@ -9,6 +9,9 @@ namespace SiMed.Models
         [Key]
         public long IDUsuario { get; set; }
         public string Nome { get; set; }
+
+        [Required]
+        [MinLength(1)]
         public string Login { get; set; }
         public string Senha { get; set; }
         public string Email { get; set; }

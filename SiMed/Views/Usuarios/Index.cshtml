@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Usuarios</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Novo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -16,9 +16,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Senha)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
@@ -35,15 +32,12 @@
             @Html.DisplayFor(modelItem => item.Login)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Senha)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDUsuario }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDUsuario }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDUsuario })
+            @Html.ActionLink("Editar", "Edit", new { id=item.IDUsuario }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IDUsuario }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.IDUsuario })
         </td>
     </tr>
 }

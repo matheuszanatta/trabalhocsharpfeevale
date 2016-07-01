@@ -86,8 +86,10 @@ namespace SiMed.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IDUsuario,Nome,Login,Senha,Email")] Usuario usuario)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && usuario.Senha != null)
             {
+                usuario.Senha = new CriptografiaService().CriptografarSenha(usuario.Senha);
+
                 db.Entry(usuario).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
